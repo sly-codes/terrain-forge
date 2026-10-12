@@ -127,3 +127,7 @@ A few details behind the diagram:
 
 - Made by [Kone Issa](https://issa.nocerv.com)
 - [Three.js](https://threejs.org) for the 3D rendering
+
+## License
+
+[MIT](LICENSE) © 2026 Kone Issa
