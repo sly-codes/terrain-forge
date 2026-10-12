@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terrain Forge</title>
+    <meta name="description" content="A procedural low-poly island generator. Shape a world, explore it in 3D and save a screenshot." />
+    <meta name="theme-color" content="#101311" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="brand">
+        <svg class="brand__mark" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M2 22 10 8l5 8 3-4 8 10z" />
+          <path class="brand__sea" d="M1 25h26" />
+        </svg>
+        <h1 class="wordmark">TERRAIN FORGE</h1>
+        <span class="tag">World generator</span>
+      </div>
+
+      <button class="seed-chip" type="button" id="seed-chip" title="Copy the seed">
+        <span>Seed</span>
+        <b id="seed-label"></b>
+        <i id="seed-copy">Copy</i>
+      </button>
+
+      <div class="header__actions">
+        <button class="btn btn--accent" type="button" data-action="randomize">New World</button>
+        <button class="btn" type="button" data-action="screenshot">Screenshot</button>
+      </div>
+    </header>
+
+    <main class="app">
+      <section class="viewport" id="viewport" aria-label="3D world">
+        <canvas id="scene"></canvas>
+
+        <p class="hud hud--hint" id="hint">Drag to orbit · Scroll to zoom · Right-drag to pan</p>
+        <p class="hud hud--badge" id="badge" hidden>Forging</p>
+        <p class="hud hud--coords" id="coords" aria-hidden="true"></p>
+        <p class="hud hud--stats" id="stats"></p>
+        <p class="hud hud--toast" id="toast" role="status" hidden></p>
+        <div class="viewport__error" id="error" hidden>
+          <h2>The 3D view could not start</h2>
+          <p>This browser or device does not seem to support WebGL. Try a recent version of Chrome, Edge, Firefox or Safari.</p>
+        </div>
+        <div class="viewport__flash" id="flash"></div>
+      </section>
+
+      <aside class="panel" aria-label="World controls">
+        <section class="group">
+          <h2>World</h2>
+          <div class="field">
+            <label for="seed">Seed</label>
+            <input class="text" type="text" id="seed" maxlength="32" spellcheck="false" autocomplete="off" />
+          </div>
+          <div class="row">
+            <button class="btn btn--accent" type="button" data-action="generate">Generate</button>
+            <button class="btn" type="button" data-action="randomize">Randomize</button>
+          </div>
+        </section>
+
+        <section class="group">
+          <h2>Terrain</h2>
+          <div class="field">
+            <label for="mountainHeight">Mountain height</label>
+            <output id="mountainHeight-out"></output>
+            <input type="range" id="mountainHeight" />
+          </div>
+          <div class="field">
+            <label for="roughness">Terrain roughness</label>
+            <output id="roughness-out"></output>
+            <input type="range" id="roughness" />
+          </div>
+          <div class="field">
+            <label for="islandSize">Island size</label>
+            <output id="islandSize-out"></output>
+            <input type="range" id="islandSize" />
+          </div>
+          <div class="field">
+            <label for="detail">Terrain detail</label>
+            <output id="detail-out"></output>
+            <input type="range" id="detail" />
+          </div>
+        </section>
+
+        <section class="group">
+          <h2>Biome</h2>
+          <div class="biomes" role="group" aria-label="Biome">
+            <button class="biome" type="button" data-biome="tropical"><i></i>Tropical</button>
+            <button class="biome" type="button" data-biome="volcanic"><i></i>Volcanic</button>
+            <button class="biome" type="button" data-biome="snowy"><i></i>Snowy</button>
+          </div>
+        </section>
+
+        <section class="group">
+          <h2>Environment</h2>
+          <div class="field">
+            <label for="treeDensity">Tree density</label>
+            <output id="treeDensity-out"></output>
+            <input type="range" id="treeDensity" />
+          </div>
+          <div class="field">
+            <label for="rockDensity">Rock density</label>
+            <output id="rockDensity-out"></output>
+            <input type="range" id="rockDensity" />
+          </div>
+          <div class="field">
+            <label for="waterLevel">Water level</label>
+            <output id="waterLevel-out"></output>
+            <input type="range" id="waterLevel" />
+          </div>
+        </section>
+
+        <section class="group">
+          <h2>View</h2>
+          <div class="row">
+            <button class="btn" type="button" data-action="resetCamera">Reset camera</button>
+            <button class="btn" type="button" data-action="screenshot">Screenshot</button>
+          </div>
+          <label class="check"><input type="checkbox" id="autoRotate" checked /><i></i>Slow rotation</label>
+          <label class="check"><input type="checkbox" id="grid" /><i></i>Grid and coordinates</label>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>
